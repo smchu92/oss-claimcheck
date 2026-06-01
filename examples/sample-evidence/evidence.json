@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-06-01T15:07:28.013051+00:00",
+  "source": {
+    "url": "https://x.com/example/status/123",
+    "type": "user-provided-url"
+  },
+  "claim": {
+    "text": "This tool replaces manual OSS adoption review and works everywhere."
+  },
+  "repository": {
+    "full_name": "openai/codex",
+    "owner": "openai",
+    "name": "codex",
+    "url": "https://github.com/openai/codex",
+    "verification_status": "identity hint only; live GitHub metadata not fetched yet"
+  },
+  "verification_checklist": [
+    "official repository exists",
+    "README supports the claim",
+    "license is present and compatible",
+    "package/install path exists",
+    "recent maintainer activity is visible",
+    "security or destructive behavior is documented"
+  ],
+  "status": {
+    "confirmed": [],
+    "unverified": [
+      "source text was provided by the user and still needs official-source verification",
+      "repository metadata has not been fetched from GitHub yet",
+      "README/package/license claims have not been checked yet"
+    ],
+    "hype_signals": [
+      "works everywhere"
+    ]
+  },
+  "follow_up_questions": [
+    "What official docs or README sections support the claim?",
+    "Does the repo contain an installable package or only a demo?",
+    "Is the license present and compatible with OSS adoption?",
+    "What is confirmed by code versus marketing copy?",
+    "What should a maintainer smoke-test before adopting this tool?"
+  ]
+}
