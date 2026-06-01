@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime, timezone
-from typing import Any
+from typing import Any, Callable
 
 
 @dataclass(frozen=True)
@@ -41,10 +41,17 @@ def detect_hype_signals(text: str) -> list[str]:
     return [phrase for phrase in phrases if phrase in lowered]
 
 
-def prepare_evidence_pack(*, url: str, claim_text: str, repo: str | None = None) -> dict[str, Any]:
+def prepare_evidence_pack(
+    *,
+    url: str,
+    claim_text: str,
+    repo: str | None = None,
+    github_fetcher: Callable[[RepoRef], dict[str, Any]] | None = None,
+) -> dict[str, Any]:
     repo_ref = parse_repo_ref(repo) if repo else None
     now = datetime.now(timezone.utc).isoformat()
 
+    confirmed: list[str] = []
     repository = None
     if repo_ref:
         repository = {
@@ -54,6 +61,18 @@ def prepare_evidence_pack(*, url: str, claim_text: str, repo: str | None = None)
             "url": repo_ref.url,
             "verification_status": "identity hint only; live GitHub metadata not fetched yet",
         }
+        if github_fetcher:
+            metadata = github_fetcher(repo_ref)
+            repository.update(metadata)
+            repository["verification_status"] = "github metadata fetched"
+            confirmed.append(f"GitHub metadata fetched for {repo_ref.full_name}")
+
+    unverified = [
+        "source text was provided by the user and still needs official-source verification",
+        "README/package/license claims have not been checked yet",
+    ]
+    if not github_fetcher:
+        unverified.insert(1, "repository metadata has not been fetched from GitHub yet")
 
     return {
         "generated_at": now,
@@ -74,12 +93,8 @@ def prepare_evidence_pack(*, url: str, claim_text: str, repo: str | None = None)
             "security or destructive behavior is documented",
         ],
         "status": {
-            "confirmed": [],
-            "unverified": [
-                "source text was provided by the user and still needs official-source verification",
-                "repository metadata has not been fetched from GitHub yet",
-                "README/package/license claims have not been checked yet",
-            ],
+            "confirmed": confirmed,
+            "unverified": unverified,
             "hype_signals": detect_hype_signals(claim_text),
         },
         "follow_up_questions": [
@@ -102,7 +117,24 @@ def render_markdown(pack: dict[str, Any]) -> str:
     repo = pack.get("repository")
     repo_section = "Not provided."
     if repo:
-        repo_section = f"- Full name: `{repo['full_name']}`\n- URL: {repo['url']}\n- Status: {repo['verification_status']}"
+        metadata_lines = [
+            f"- Full name: `{repo['full_name']}`",
+            f"- URL: {repo['url']}",
+            f"- Status: {repo['verification_status']}",
+        ]
+        for key, label in [
+            ("description", "Description"),
+            ("stars", "Stars"),
+            ("forks", "Forks"),
+            ("open_issues", "Open issues"),
+            ("default_branch", "Default branch"),
+            ("license", "License"),
+            ("updated_at", "Updated at"),
+            ("pushed_at", "Pushed at"),
+        ]:
+            if repo.get(key) is not None:
+                metadata_lines.append(f"- {label}: {repo[key]}")
+        repo_section = "\n".join(metadata_lines)
 
     status = pack["status"]
     return f"""# Evidence Pack

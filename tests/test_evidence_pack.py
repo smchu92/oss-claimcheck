@@ -48,6 +48,30 @@ def test_render_markdown_contains_maintainer_review_sections():
     assert "does PhD work in seconds" in markdown
 
 
+def test_prepare_evidence_pack_can_include_github_metadata_from_fetcher():
+    def fake_fetcher(repo):
+        assert repo.full_name == "openai/codex"
+        return {
+            "description": "Lightweight coding agent",
+            "stars": 1234,
+            "forks": 56,
+            "default_branch": "main",
+            "license": "Apache-2.0",
+            "updated_at": "2026-06-01T00:00:00Z",
+        }
+
+    pack = prepare_evidence_pack(
+        url="https://x.com/example/status/123",
+        claim_text="This tool replaces all reviewers.",
+        repo="openai/codex",
+        github_fetcher=fake_fetcher,
+    )
+
+    assert pack["repository"]["verification_status"] == "github metadata fetched"
+    assert pack["repository"]["stars"] == 1234
+    assert "GitHub metadata fetched for openai/codex" in pack["status"]["confirmed"]
+
+
 def test_cli_prepare_writes_json_and_markdown(tmp_path):
     from link_evidence_pack.cli import main
 

@@ -28,6 +28,7 @@ link-evidence-pack prepare \
   --url "https://x.com/example/status/123" \
   --claim-text "This repo replaces manual OSS tool evaluation" \
   --repo "owner/repo" \
+  --fetch-github \
   --output-dir examples/sample-evidence
 ```
 

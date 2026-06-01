@@ -17,6 +17,7 @@ def build_parser() -> argparse.ArgumentParser:
     prepare.add_argument("--claim-text", required=True, help="Claim text copied from the source.")
     prepare.add_argument("--repo", help="Optional GitHub repository reference, e.g. owner/repo.")
     prepare.add_argument("--output-dir", required=True, help="Directory to write evidence.json and evidence.md.")
+    prepare.add_argument("--fetch-github", action="store_true", help="Fetch live GitHub metadata for --repo.")
     return parser
 
 
@@ -27,7 +28,16 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.command == "prepare":
         output_dir = Path(args.output_dir)
         output_dir.mkdir(parents=True, exist_ok=True)
-        pack = prepare_evidence_pack(url=args.url, claim_text=args.claim_text, repo=args.repo)
+        github_fetcher = None
+        if args.fetch_github:
+            from .github import fetch_github_repo_metadata
+            github_fetcher = fetch_github_repo_metadata
+        pack = prepare_evidence_pack(
+            url=args.url,
+            claim_text=args.claim_text,
+            repo=args.repo,
+            github_fetcher=github_fetcher,
+        )
         (output_dir / "evidence.json").write_text(json.dumps(pack, indent=2, ensure_ascii=False) + "\n")
         (output_dir / "evidence.md").write_text(render_markdown(pack))
         print(f"Wrote {output_dir / 'evidence.json'}")

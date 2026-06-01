@@ -1,6 +1,6 @@
 # Evidence Pack
 
-Generated: 2026-06-01T15:07:28.013051+00:00
+Generated: 2026-06-01T15:09:51.847581+00:00
 
 ## Source
 
@@ -15,16 +15,23 @@ This tool replaces manual OSS adoption review and works everywhere.
 
 - Full name: `openai/codex`
 - URL: https://github.com/openai/codex
-- Status: identity hint only; live GitHub metadata not fetched yet
+- Status: github metadata fetched
+- Description: Lightweight coding agent that runs in your terminal
+- Stars: 87602
+- Forks: 12843
+- Open issues: 5635
+- Default branch: main
+- License: Apache-2.0
+- Updated at: 2026-06-01T15:07:18Z
+- Pushed at: 2026-06-01T15:03:45Z
 
 ## Confirmed
 
-None yet.
+- GitHub metadata fetched for openai/codex
 
 ## Unverified
 
 - source text was provided by the user and still needs official-source verification
-- repository metadata has not been fetched from GitHub yet
 - README/package/license claims have not been checked yet
 
 ## Hype signals

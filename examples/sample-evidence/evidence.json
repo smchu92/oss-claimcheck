@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-01T15:07:28.013051+00:00",
+  "generated_at": "2026-06-01T15:09:51.847581+00:00",
   "source": {
     "url": "https://x.com/example/status/123",
     "type": "user-provided-url"
@@ -12,7 +12,15 @@
     "owner": "openai",
     "name": "codex",
     "url": "https://github.com/openai/codex",
-    "verification_status": "identity hint only; live GitHub metadata not fetched yet"
+    "verification_status": "github metadata fetched",
+    "description": "Lightweight coding agent that runs in your terminal",
+    "stars": 87602,
+    "forks": 12843,
+    "open_issues": 5635,
+    "default_branch": "main",
+    "license": "Apache-2.0",
+    "updated_at": "2026-06-01T15:07:18Z",
+    "pushed_at": "2026-06-01T15:03:45Z"
   },
   "verification_checklist": [
     "official repository exists",
@@ -23,10 +31,11 @@
     "security or destructive behavior is documented"
   ],
   "status": {
-    "confirmed": [],
+    "confirmed": [
+      "GitHub metadata fetched for openai/codex"
+    ],
     "unverified": [
       "source text was provided by the user and still needs official-source verification",
-      "repository metadata has not been fetched from GitHub yet",
       "README/package/license claims have not been checked yet"
     ],
     "hype_signals": [
