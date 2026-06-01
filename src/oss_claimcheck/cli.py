@@ -9,7 +9,7 @@ from .core import prepare_evidence_pack, render_markdown
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="link-evidence-pack")
+    parser = argparse.ArgumentParser(prog="oss-claimcheck")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     prepare = subparsers.add_parser("prepare", help="Generate an evidence pack from provided claim inputs.")

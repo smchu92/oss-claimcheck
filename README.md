@@ -1,6 +1,6 @@
-# link-evidence-pack
+# oss-claimcheck
 
-`link-evidence-pack` is an adoption-safety evidence pack generator for open-source maintainers and AI builders.
+`oss-claimcheck` is an adoption-safety evidence pack generator for open-source maintainers and AI builders.
 
 It turns noisy social posts, product claims, and GitHub repository references into a structured Markdown/JSON evidence pack so maintainers can decide what is confirmed, unverified, or likely overstated before adopting a tool.
 
@@ -24,7 +24,7 @@ Network verification is intentionally incremental. The first working version sup
 ## Example
 
 ```bash
-link-evidence-pack prepare \
+oss-claimcheck prepare \
   --url "https://x.com/example/status/123" \
   --claim-text "This repo replaces manual OSS tool evaluation" \
   --repo "owner/repo" \

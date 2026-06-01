@@ -2,7 +2,7 @@
 
 ## Project
 
-`link-evidence-pack` — an adoption-safety evidence pack generator for OSS maintainers.
+`oss-claimcheck` — an adoption-safety evidence pack generator for OSS maintainers.
 
 ## Application framing
 

@@ -1,6 +1,6 @@
 # Evidence Pack
 
-Generated: 2026-06-01T15:09:51.847581+00:00
+Generated: 2026-06-01T15:14:09.611402+00:00
 
 ## Source
 
@@ -19,7 +19,7 @@ This tool replaces manual OSS adoption review and works everywhere.
 - Description: Lightweight coding agent that runs in your terminal
 - Stars: 87602
 - Forks: 12843
-- Open issues: 5635
+- Open issues: 5636
 - Default branch: main
 - License: Apache-2.0
 - Updated at: 2026-06-01T15:07:18Z

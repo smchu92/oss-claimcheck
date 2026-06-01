@@ -13,7 +13,7 @@ def fetch_github_repo_metadata(repo: RepoRef, *, timeout: float = 10.0) -> dict[
         url,
         headers={
             "Accept": "application/vnd.github+json",
-            "User-Agent": "link-evidence-pack/0.1.0",
+            "User-Agent": "oss-claimcheck/0.1.0",
         },
     )
     with urllib.request.urlopen(request, timeout=timeout) as response:

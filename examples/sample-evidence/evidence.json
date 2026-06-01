@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-01T15:09:51.847581+00:00",
+  "generated_at": "2026-06-01T15:14:09.611402+00:00",
   "source": {
     "url": "https://x.com/example/status/123",
     "type": "user-provided-url"
@@ -16,7 +16,7 @@
     "description": "Lightweight coding agent that runs in your terminal",
     "stars": 87602,
     "forks": 12843,
-    "open_issues": 5635,
+    "open_issues": 5636,
     "default_branch": "main",
     "license": "Apache-2.0",
     "updated_at": "2026-06-01T15:07:18Z",

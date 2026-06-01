@@ -18,7 +18,7 @@
 
 ## GitHub repository URL
 
-https://github.com/<github-username>/link-evidence-pack
+https://github.com/<github-username>/oss-claimcheck
 
 ## Maintainer role
 

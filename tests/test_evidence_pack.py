@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from link_evidence_pack.core import prepare_evidence_pack, parse_repo_ref, render_markdown
+from oss_claimcheck.core import prepare_evidence_pack, parse_repo_ref, render_markdown
 
 
 def test_parse_repo_ref_accepts_owner_repo():
@@ -73,7 +73,7 @@ def test_prepare_evidence_pack_can_include_github_metadata_from_fetcher():
 
 
 def test_cli_prepare_writes_json_and_markdown(tmp_path):
-    from link_evidence_pack.cli import main
+    from oss_claimcheck.cli import main
 
     output_dir = tmp_path / "evidence"
     exit_code = main([
