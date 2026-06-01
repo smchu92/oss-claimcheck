@@ -18,7 +18,7 @@
 
 ## GitHub repository URL
 
-https://github.com/<github-username>/oss-claimcheck
+https://github.com/smchu92/oss-claimcheck
 
 ## Maintainer role
 
