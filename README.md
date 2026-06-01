@@ -48,11 +48,20 @@ This is not a generic link summarizer. It is a maintainer safety workflow for to
 - confirmed vs unverified separation
 - LLM/Codex-ready follow-up questions
 
+## Roadmap
+
+Active roadmap items are tracked in [ROADMAP.md](ROADMAP.md) and GitHub Issues. The next focus areas are:
+
+- repository README/package/license verification
+- official-source quote extraction
+- evidence scoring for maintenance, identity, security, and hype risk
+- Codex-ready smoke-test prompts for safe OSS tool adoption reviews
+
 ## Development
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 pip install -e '.[dev]'
-pytest
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 pytest
 ```
