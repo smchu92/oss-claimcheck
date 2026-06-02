@@ -17,9 +17,11 @@ The first version focuses on deterministic intake and report generation:
 - optionally accept a GitHub repo reference such as `owner/repo`
 - produce `evidence.json`
 - produce `evidence.md`
+- extract matching quotes from official source text
+- fetch bounded GitHub metadata for README/license/package/release signals
 - separate confirmed, unverified, and hype-risk sections
 
-Network verification is intentionally incremental. The first working version supports offline/static report generation, then GitHub API verification will be added as a bounded follow-up.
+Network verification is intentionally incremental. The current version keeps network access explicit via `--fetch-github` and accepts official-source text directly or from a local file.
 
 ## Example
 
@@ -29,7 +31,28 @@ oss-claimcheck prepare \
   --claim-text "This repo replaces manual OSS tool evaluation" \
   --repo "owner/repo" \
   --fetch-github \
+  --official-source-title "README" \
+  --official-source-url "https://github.com/owner/repo" \
+  --official-source-text-file README.md \
   --output-dir examples/sample-evidence
+```
+
+## Example output excerpt
+
+```markdown
+## Official source quotes
+
+### README
+
+- URL: https://github.com/owner/repo
+- "This tool generates adoption-safety evidence packs for OSS maintainers."
+
+## Confirmed
+
+- GitHub metadata fetched for owner/repo
+- README detected
+- License detected: MIT
+- Package metadata detected: pyproject.toml
 ```
 
 ## Output

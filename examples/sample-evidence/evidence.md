@@ -1,6 +1,6 @@
 # Evidence Pack
 
-Generated: 2026-06-01T15:14:09.611402+00:00
+Generated: 2026-06-02T13:59:49.527403+00:00
 
 ## Source
 
@@ -9,34 +9,47 @@ Generated: 2026-06-01T15:14:09.611402+00:00
 
 ## Claim
 
-This tool replaces manual OSS adoption review and works everywhere.
+oss-claimcheck generates adoption-safety evidence packs for OSS maintainers and AI builders.
 
 ## Repository
 
-- Full name: `openai/codex`
-- URL: https://github.com/openai/codex
+- Full name: `smchu92/oss-claimcheck`
+- URL: https://github.com/smchu92/oss-claimcheck
 - Status: github metadata fetched
-- Description: Lightweight coding agent that runs in your terminal
-- Stars: 87602
-- Forks: 12843
-- Open issues: 5636
+- Description: Adoption-safety evidence pack generator for open-source maintainers
+- Stars: 0
+- Forks: 0
+- Open issues: 5
 - Default branch: main
-- License: Apache-2.0
-- Updated at: 2026-06-01T15:07:18Z
-- Pushed at: 2026-06-01T15:03:45Z
+- License: MIT
+- Updated at: 2026-06-01T15:53:06Z
+- Pushed at: 2026-06-01T15:49:41Z
+
+## Official source quotes
+
+### README
+
+- URL: https://github.com/smchu92/oss-claimcheck
+
+- "`oss-claimcheck` is an adoption-safety evidence pack generator for open-source maintainers and AI builders."
+- "It turns noisy social posts, product claims, and GitHub repository references into a structured Markdown/JSON evidence pack so maintainers can decide what is confirmed, unverified, or likely overstated before adopting a tool."
+- "evidence scoring for maintenance, identity, security, and hype risk"
 
 ## Confirmed
 
-- GitHub metadata fetched for openai/codex
+- GitHub metadata fetched for smchu92/oss-claimcheck
+- README detected
+- License detected: MIT
+- Package metadata detected: pyproject.toml
+- Official source quotes extracted from README
 
 ## Unverified
 
 - source text was provided by the user and still needs official-source verification
-- README/package/license claims have not been checked yet
 
 ## Hype signals
 
-- works everywhere
+None yet.
 
 ## Verification checklist
 

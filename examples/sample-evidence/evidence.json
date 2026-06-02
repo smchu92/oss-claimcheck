@@ -1,27 +1,51 @@
 {
-  "generated_at": "2026-06-01T15:14:09.611402+00:00",
+  "generated_at": "2026-06-02T13:59:49.527403+00:00",
   "source": {
     "url": "https://x.com/example/status/123",
     "type": "user-provided-url"
   },
   "claim": {
-    "text": "This tool replaces manual OSS adoption review and works everywhere."
+    "text": "oss-claimcheck generates adoption-safety evidence packs for OSS maintainers and AI builders."
   },
   "repository": {
-    "full_name": "openai/codex",
-    "owner": "openai",
-    "name": "codex",
-    "url": "https://github.com/openai/codex",
+    "full_name": "smchu92/oss-claimcheck",
+    "owner": "smchu92",
+    "name": "oss-claimcheck",
+    "url": "https://github.com/smchu92/oss-claimcheck",
     "verification_status": "github metadata fetched",
-    "description": "Lightweight coding agent that runs in your terminal",
-    "stars": 87602,
-    "forks": 12843,
-    "open_issues": 5636,
+    "description": "Adoption-safety evidence pack generator for open-source maintainers",
+    "stars": 0,
+    "forks": 0,
+    "open_issues": 5,
     "default_branch": "main",
-    "license": "Apache-2.0",
-    "updated_at": "2026-06-01T15:07:18Z",
-    "pushed_at": "2026-06-01T15:03:45Z"
+    "license": "MIT",
+    "updated_at": "2026-06-01T15:53:06Z",
+    "pushed_at": "2026-06-01T15:49:41Z",
+    "readme_present": true,
+    "package_files": [
+      "pyproject.toml"
+    ],
+    "release_count": 0,
+    "signals": {
+      "readme_present": true,
+      "license_present": true,
+      "package_files": [
+        "pyproject.toml"
+      ],
+      "release_count": 0
+    }
   },
+  "official_sources": [
+    {
+      "title": "README",
+      "url": "https://github.com/smchu92/oss-claimcheck",
+      "quotes": [
+        "`oss-claimcheck` is an adoption-safety evidence pack generator for open-source maintainers and AI builders.",
+        "It turns noisy social posts, product claims, and GitHub repository references into a structured Markdown/JSON evidence pack so maintainers can decide what is confirmed, unverified, or likely overstated before adopting a tool.",
+        "evidence scoring for maintenance, identity, security, and hype risk"
+      ]
+    }
+  ],
   "verification_checklist": [
     "official repository exists",
     "README supports the claim",
@@ -32,15 +56,16 @@
   ],
   "status": {
     "confirmed": [
-      "GitHub metadata fetched for openai/codex"
+      "GitHub metadata fetched for smchu92/oss-claimcheck",
+      "README detected",
+      "License detected: MIT",
+      "Package metadata detected: pyproject.toml",
+      "Official source quotes extracted from README"
     ],
     "unverified": [
-      "source text was provided by the user and still needs official-source verification",
-      "README/package/license claims have not been checked yet"
+      "source text was provided by the user and still needs official-source verification"
     ],
-    "hype_signals": [
-      "works everywhere"
-    ]
+    "hype_signals": []
   },
   "follow_up_questions": [
     "What official docs or README sections support the claim?",

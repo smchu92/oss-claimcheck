@@ -18,6 +18,10 @@ def build_parser() -> argparse.ArgumentParser:
     prepare.add_argument("--repo", help="Optional GitHub repository reference, e.g. owner/repo.")
     prepare.add_argument("--output-dir", required=True, help="Directory to write evidence.json and evidence.md.")
     prepare.add_argument("--fetch-github", action="store_true", help="Fetch live GitHub metadata for --repo.")
+    prepare.add_argument("--official-source-title", help="Title for an official source used for quote extraction.")
+    prepare.add_argument("--official-source-url", help="URL for an official source used for quote extraction.")
+    prepare.add_argument("--official-source-text", help="Official source text to search for claim-supporting quotes.")
+    prepare.add_argument("--official-source-text-file", help="File containing official source text to search for quotes.")
     return parser
 
 
@@ -32,11 +36,24 @@ def main(argv: Sequence[str] | None = None) -> int:
         if args.fetch_github:
             from .github import fetch_github_repo_metadata
             github_fetcher = fetch_github_repo_metadata
+
+        official_sources = []
+        official_source_text = args.official_source_text
+        if args.official_source_text_file:
+            official_source_text = Path(args.official_source_text_file).read_text()
+        if official_source_text:
+            official_sources.append({
+                "title": args.official_source_title or "Official source",
+                "url": args.official_source_url,
+                "text": official_source_text,
+            })
+
         pack = prepare_evidence_pack(
             url=args.url,
             claim_text=args.claim_text,
             repo=args.repo,
             github_fetcher=github_fetcher,
+            official_sources=official_sources,
         )
         (output_dir / "evidence.json").write_text(json.dumps(pack, indent=2, ensure_ascii=False) + "\n")
         (output_dir / "evidence.md").write_text(render_markdown(pack))

@@ -72,6 +72,75 @@ def test_prepare_evidence_pack_can_include_github_metadata_from_fetcher():
     assert "GitHub metadata fetched for openai/codex" in pack["status"]["confirmed"]
 
 
+def test_prepare_evidence_pack_extracts_official_source_quotes():
+    pack = prepare_evidence_pack(
+        url="https://x.com/example/status/123",
+        claim_text="This tool generates evidence packs for OSS adoption review.",
+        official_sources=[{
+            "title": "README",
+            "url": "https://github.com/example/tool",
+            "text": "A generic intro. This tool generates evidence packs for OSS maintainers before adoption. Another sentence.",
+        }],
+    )
+
+    sources = pack["official_sources"]
+    assert sources[0]["title"] == "README"
+    assert sources[0]["quotes"] == ["This tool generates evidence packs for OSS maintainers before adoption."]
+    markdown = render_markdown(pack)
+    assert "## Official source quotes" in markdown
+    assert "This tool generates evidence packs" in markdown
+
+
+def test_prepare_evidence_pack_includes_repository_signals_from_github_metadata():
+    def fake_fetcher(repo):
+        return {
+            "description": "Lightweight coding agent",
+            "license": "Apache-2.0",
+            "readme_present": True,
+            "package_files": ["pyproject.toml"],
+            "release_count": 2,
+        }
+
+    pack = prepare_evidence_pack(
+        url="https://x.com/example/status/123",
+        claim_text="This tool replaces manual OSS adoption review.",
+        repo="openai/codex",
+        github_fetcher=fake_fetcher,
+    )
+
+    signals = pack["repository"]["signals"]
+    assert signals["readme_present"] is True
+    assert signals["license_present"] is True
+    assert signals["package_files"] == ["pyproject.toml"]
+    assert signals["release_count"] == 2
+    assert "README detected" in pack["status"]["confirmed"]
+    assert "License detected: Apache-2.0" in pack["status"]["confirmed"]
+    assert "Package metadata detected: pyproject.toml" in pack["status"]["confirmed"]
+
+
+def test_cli_prepare_accepts_official_source_text_file(tmp_path):
+    from oss_claimcheck.cli import main
+
+    source_file = tmp_path / "source.txt"
+    source_file.write_text("The official README says this tool supports adoption review evidence packs.")
+    output_dir = tmp_path / "evidence"
+
+    exit_code = main([
+        "prepare",
+        "--url", "https://x.com/example/status/123",
+        "--claim-text", "This tool supports adoption review evidence packs.",
+        "--official-source-title", "README",
+        "--official-source-url", "https://github.com/example/tool",
+        "--official-source-text-file", str(source_file),
+        "--output-dir", str(output_dir),
+    ])
+
+    assert exit_code == 0
+    data = json.loads((output_dir / "evidence.json").read_text())
+    assert data["official_sources"][0]["quotes"]
+    assert "## Official source quotes" in (output_dir / "evidence.md").read_text()
+
+
 def test_cli_prepare_writes_json_and_markdown(tmp_path):
     from oss_claimcheck.cli import main
 

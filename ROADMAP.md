@@ -4,8 +4,8 @@
 
 ## Near-term
 
-- [ ] Verify README, package metadata, license, and release signals for a target repository.
-- [ ] Extract short source quotes from official pages, READMEs, and package registries.
+- [x] Verify README, package metadata, license, and release signals for a target repository.
+- [x] Extract short source quotes from official pages, READMEs, and package registries.
 - [ ] Add a simple evidence score that separates identity, maintenance, security, and hype-risk signals.
 - [ ] Generate Codex-ready smoke-test prompts for evaluating a tool safely.
 - [ ] Add CI fixtures for deterministic GitHub API metadata parsing.
