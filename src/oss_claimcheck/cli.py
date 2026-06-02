@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Sequence
 
 from .core import prepare_evidence_pack, render_markdown
+from .safety import read_limited_text_file, validate_output_dir, validate_source_url
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -30,7 +31,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     if args.command == "prepare":
-        output_dir = Path(args.output_dir)
+        try:
+            source_url = validate_source_url(args.url)
+            output_dir = validate_output_dir(Path(args.output_dir))
+        except ValueError as error:
+            parser.error(str(error))
         output_dir.mkdir(parents=True, exist_ok=True)
         github_fetcher = None
         if args.fetch_github:
@@ -40,7 +45,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         official_sources = []
         official_source_text = args.official_source_text
         if args.official_source_text_file:
-            official_source_text = Path(args.official_source_text_file).read_text()
+            try:
+                official_source_text = read_limited_text_file(Path(args.official_source_text_file))
+            except ValueError as error:
+                parser.error(str(error))
         if official_source_text:
             official_sources.append({
                 "title": args.official_source_title or "Official source",
@@ -49,7 +57,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             })
 
         pack = prepare_evidence_pack(
-            url=args.url,
+            url=source_url,
             claim_text=args.claim_text,
             repo=args.repo,
             github_fetcher=github_fetcher,

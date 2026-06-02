@@ -21,7 +21,7 @@ The first version focuses on deterministic intake and report generation:
 - fetch bounded GitHub metadata for README/license/package/release signals
 - separate confirmed, unverified, and hype-risk sections
 
-Network verification is intentionally incremental. The current version keeps network access explicit via `--fetch-github` and accepts official-source text directly or from a local file.
+Network verification is intentionally incremental. The current version keeps network access explicit via `--fetch-github` and accepts official-source text directly or from a local file. See [security boundaries](docs/security.md) for how untrusted URLs, repository references, text files, and output paths are handled.
 
 ## Example
 

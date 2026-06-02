@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-02T13:59:49.527403+00:00",
+  "generated_at": "2026-06-02T15:31:31.742983+00:00",
   "source": {
     "url": "https://x.com/example/status/123",
     "type": "user-provided-url"
@@ -16,23 +16,23 @@
     "description": "Adoption-safety evidence pack generator for open-source maintainers",
     "stars": 0,
     "forks": 0,
-    "open_issues": 5,
+    "open_issues": 3,
     "default_branch": "main",
     "license": "MIT",
-    "updated_at": "2026-06-01T15:53:06Z",
-    "pushed_at": "2026-06-01T15:49:41Z",
+    "updated_at": "2026-06-02T14:03:06Z",
+    "pushed_at": "2026-06-02T14:00:45Z",
     "readme_present": true,
     "package_files": [
       "pyproject.toml"
     ],
-    "release_count": 0,
+    "release_count": 1,
     "signals": {
       "readme_present": true,
       "license_present": true,
       "package_files": [
         "pyproject.toml"
       ],
-      "release_count": 0
+      "release_count": 1
     }
   },
   "official_sources": [
@@ -60,6 +60,7 @@
       "README detected",
       "License detected: MIT",
       "Package metadata detected: pyproject.toml",
+      "GitHub releases detected: 1",
       "Official source quotes extracted from README"
     ],
     "unverified": [

@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 import re
 from typing import Any, Callable
+from urllib.parse import urlparse
 
 
 @dataclass(frozen=True)
@@ -20,10 +21,25 @@ class RepoRef:
         return f"https://github.com/{self.owner}/{self.name}"
 
 
+_REPO_PART_PATTERN = re.compile(r"^[A-Za-z0-9_.-]+$")
+
+
+def _valid_repo_part(value: str) -> bool:
+    return bool(_REPO_PART_PATTERN.fullmatch(value)) and value not in {".", ".."}
+
+
 def parse_repo_ref(repo: str) -> RepoRef:
-    normalized = repo.strip().removeprefix("https://github.com/").strip("/")
+    value = repo.strip()
+    if value.startswith(("http://", "https://")):
+        parsed = urlparse(value)
+        if parsed.scheme != "https" or parsed.netloc.lower() != "github.com":
+            raise ValueError("repo must be an owner/name pair or GitHub URL")
+        normalized = parsed.path.strip("/")
+    else:
+        normalized = value.strip("/")
+
     parts = normalized.split("/")
-    if len(parts) < 2 or not parts[0] or not parts[1]:
+    if len(parts) != 2 or not all(_valid_repo_part(part) for part in parts):
         raise ValueError("repo must be an owner/name pair or GitHub URL")
     return RepoRef(owner=parts[0], name=parts[1])
 

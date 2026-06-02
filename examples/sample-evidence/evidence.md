@@ -1,6 +1,6 @@
 # Evidence Pack
 
-Generated: 2026-06-02T13:59:49.527403+00:00
+Generated: 2026-06-02T15:31:31.742983+00:00
 
 ## Source
 
@@ -19,11 +19,11 @@ oss-claimcheck generates adoption-safety evidence packs for OSS maintainers and 
 - Description: Adoption-safety evidence pack generator for open-source maintainers
 - Stars: 0
 - Forks: 0
-- Open issues: 5
+- Open issues: 3
 - Default branch: main
 - License: MIT
-- Updated at: 2026-06-01T15:53:06Z
-- Pushed at: 2026-06-01T15:49:41Z
+- Updated at: 2026-06-02T14:03:06Z
+- Pushed at: 2026-06-02T14:00:45Z
 
 ## Official source quotes
 
@@ -41,6 +41,7 @@ oss-claimcheck generates adoption-safety evidence packs for OSS maintainers and 
 - README detected
 - License detected: MIT
 - Package metadata detected: pyproject.toml
+- GitHub releases detected: 1
 - Official source quotes extracted from README
 
 ## Unverified

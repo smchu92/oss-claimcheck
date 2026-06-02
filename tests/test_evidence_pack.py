@@ -12,6 +12,32 @@ def test_parse_repo_ref_accepts_owner_repo():
     assert repo.url == "https://github.com/openai/codex"
 
 
+def test_parse_repo_ref_accepts_canonical_github_url():
+    repo = parse_repo_ref("https://github.com/openai/codex")
+
+    assert repo.owner == "openai"
+    assert repo.name == "codex"
+
+
+def test_parse_repo_ref_rejects_malformed_or_suspicious_values():
+    bad_values = [
+        "openai",
+        "openai/codex/extra",
+        "../codex",
+        "openai/co dex",
+        "https://evil.example/openai/codex",
+        "https://github.com/openai/../codex",
+    ]
+
+    for value in bad_values:
+        try:
+            parse_repo_ref(value)
+        except ValueError:
+            pass
+        else:
+            raise AssertionError(f"expected ValueError for {value!r}")
+
+
 def test_prepare_evidence_pack_returns_structured_claim_sections():
     pack = prepare_evidence_pack(
         url="https://x.com/example/status/123",
@@ -116,6 +142,39 @@ def test_prepare_evidence_pack_includes_repository_signals_from_github_metadata(
     assert "README detected" in pack["status"]["confirmed"]
     assert "License detected: Apache-2.0" in pack["status"]["confirmed"]
     assert "Package metadata detected: pyproject.toml" in pack["status"]["confirmed"]
+
+
+def test_cli_prepare_rejects_unsafe_source_url(tmp_path):
+    from oss_claimcheck.cli import main
+
+    try:
+        main([
+            "prepare",
+            "--url", "file:///etc/passwd",
+            "--claim-text", "This tool supports adoption review evidence packs.",
+            "--output-dir", str(tmp_path / "evidence"),
+        ])
+    except SystemExit as error:
+        assert error.code == 2
+    else:
+        raise AssertionError("expected CLI to reject unsafe source URL")
+
+
+def test_cli_prepare_rejects_dangerous_output_dir(tmp_path, monkeypatch):
+    from oss_claimcheck.cli import main
+
+    monkeypatch.chdir(tmp_path)
+    try:
+        main([
+            "prepare",
+            "--url", "https://x.com/example/status/123",
+            "--claim-text", "This tool supports adoption review evidence packs.",
+            "--output-dir", str(tmp_path),
+        ])
+    except SystemExit as error:
+        assert error.code == 2
+    else:
+        raise AssertionError("expected CLI to reject dangerous output dir")
 
 
 def test_cli_prepare_accepts_official_source_text_file(tmp_path):
