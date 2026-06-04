@@ -8,7 +8,7 @@
 - [x] Extract short source quotes from official pages, READMEs, and package registries.
 - [x] Document and test untrusted-input safety boundaries.
 - [ ] Add a simple evidence score that separates identity, maintenance, security, and hype-risk signals.
-- [ ] Generate Codex-ready smoke-test prompts for evaluating a tool safely.
+- [x] Generate Codex-ready smoke-test prompts for evaluating a tool safely.
 - [ ] Add CI fixtures for deterministic GitHub API metadata parsing.
 
 ## Later

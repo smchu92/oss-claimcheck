@@ -200,6 +200,27 @@ def test_cli_prepare_accepts_official_source_text_file(tmp_path):
     assert "## Official source quotes" in (output_dir / "evidence.md").read_text()
 
 
+def test_prepare_evidence_pack_includes_codex_prompt_suggestions_for_hype_signals():
+    pack = prepare_evidence_pack(
+        url="https://x.com/example/status/123",
+        claim_text="This tool replaces all reviewers with zero setup.",
+        repo="owner/repo",
+    )
+
+    prompts = pack["codex_smoke_test_prompts"]
+    assert len(prompts) >= 4
+    assert prompts[0]["category"] == "installation"
+    assert prompts[0]["suggested"] is True
+    assert "owner/repo" in prompts[0]["prompt"]
+    assert "zero setup" in prompts[0]["references"]
+    assert any(prompt["category"] == "failure-mode review" for prompt in prompts)
+
+    markdown = render_markdown(pack)
+    assert "## Codex-ready follow-up prompts" in markdown
+    assert "Suggested — verify before relying on this task" in markdown
+    assert "zero setup" in markdown
+
+
 def test_cli_prepare_writes_json_and_markdown(tmp_path):
     from oss_claimcheck.cli import main
 
@@ -220,4 +241,6 @@ def test_cli_prepare_writes_json_and_markdown(tmp_path):
 
     data = json.loads(evidence_json.read_text())
     assert data["repository"]["full_name"] == "owner/repo"
+    assert "codex_smoke_test_prompts" in data
     assert "## Hype signals" in evidence_md.read_text()
+    assert "## Codex-ready follow-up prompts" in evidence_md.read_text()

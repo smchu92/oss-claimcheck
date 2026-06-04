@@ -116,6 +116,62 @@ def _confirmed_repository_signals(repository: dict[str, Any]) -> list[str]:
     return confirmed
 
 
+def _codex_prompt_references(confirmed: list[str], unverified: list[str], hype_signals: list[str]) -> str:
+    references = []
+    if confirmed:
+        references.append("confirmed: " + "; ".join(confirmed[:3]))
+    if unverified:
+        references.append("unverified: " + "; ".join(unverified[:3]))
+    if hype_signals:
+        references.append("hype signals: " + "; ".join(hype_signals))
+    return " | ".join(references) if references else "no specific evidence signals yet"
+
+
+def generate_codex_smoke_test_prompts(
+    *,
+    claim_text: str,
+    repository: dict[str, Any] | None,
+    confirmed: list[str],
+    unverified: list[str],
+    hype_signals: list[str],
+) -> list[dict[str, Any]]:
+    repo_label = repository["full_name"] if repository else "the target repository"
+    repo_url = repository["url"] if repository else "the repository URL from the evidence pack"
+    references = _codex_prompt_references(confirmed, unverified, hype_signals)
+    base_context = (
+        f"Use only the repository at {repo_url} and the claim text below. "
+        "Treat this as a smoke test, not a full audit. "
+        f"Claim: {claim_text!r}. Evidence references: {references}."
+    )
+    prompts = [
+        (
+            "installation",
+            f"{base_context} Check whether {repo_label} has a documented install path. Run the smallest safe install or dry-run command available, then report the exact commands, outputs, and any missing prerequisites.",
+        ),
+        (
+            "basic run",
+            f"{base_context} Find the quickest documented example or CLI entry point for {repo_label}. Execute the smallest non-destructive run, capture stdout/stderr, and say whether it supports the claim or only demonstrates a narrower behavior.",
+        ),
+        (
+            "license check",
+            f"{base_context} Verify the license for {repo_label} from repository files or GitHub metadata. Report the detected license, missing/ambiguous license evidence, and whether adoption needs human review.",
+        ),
+        (
+            "failure-mode review",
+            f"{base_context} Review likely failure modes before adoption: setup assumptions, network/API dependencies, destructive behavior, and exaggerated claims such as {', '.join(hype_signals) if hype_signals else 'unverified marketing claims'}. Return concrete risks and one safe follow-up test for each.",
+        ),
+    ]
+    return [
+        {
+            "category": category,
+            "suggested": True,
+            "references": references,
+            "prompt": prompt,
+        }
+        for category, prompt in prompts
+    ]
+
+
 def prepare_evidence_pack(
     *,
     url: str,
@@ -164,6 +220,15 @@ def prepare_evidence_pack(
     if not github_fetcher:
         unverified.insert(1, "repository metadata has not been fetched from GitHub yet")
 
+    hype_signals = detect_hype_signals(claim_text)
+    codex_prompts = generate_codex_smoke_test_prompts(
+        claim_text=claim_text,
+        repository=repository,
+        confirmed=confirmed,
+        unverified=unverified,
+        hype_signals=hype_signals,
+    )
+
     return {
         "generated_at": now,
         "source": {
@@ -186,8 +251,9 @@ def prepare_evidence_pack(
         "status": {
             "confirmed": confirmed,
             "unverified": unverified,
-            "hype_signals": detect_hype_signals(claim_text),
+            "hype_signals": hype_signals,
         },
+        "codex_smoke_test_prompts": codex_prompts,
         "follow_up_questions": [
             "What official docs or README sections support the claim?",
             "Does the repo contain an installable package or only a demo?",
@@ -219,6 +285,21 @@ def _official_sources_markdown(sources: list[dict[str, Any]]) -> str:
     return "\n\n".join(sections)
 
 
+def _codex_prompts_markdown(prompts: list[dict[str, Any]]) -> str:
+    if not prompts:
+        return "None generated."
+
+    sections = []
+    for prompt in prompts:
+        sections.append(
+            f"### {prompt['category'].title()}\n\n"
+            "- Status: Suggested — verify before relying on this task\n"
+            f"- References: {prompt['references']}\n\n"
+            f"```text\n{prompt['prompt']}\n```"
+        )
+    return "\n\n".join(sections)
+
+
 def render_markdown(pack: dict[str, Any]) -> str:
     repo = pack.get("repository")
     repo_section = "Not provided."
@@ -244,6 +325,7 @@ def render_markdown(pack: dict[str, Any]) -> str:
 
     status = pack["status"]
     official_sources = _official_sources_markdown(pack.get("official_sources", []))
+    codex_prompts = _codex_prompts_markdown(pack.get("codex_smoke_test_prompts", []))
     return f"""# Evidence Pack
 
 Generated: {pack['generated_at']}
@@ -280,6 +362,10 @@ Generated: {pack['generated_at']}
 ## Verification checklist
 
 {_bullet_list(pack['verification_checklist'])}
+
+## Codex-ready follow-up prompts
+
+{codex_prompts}
 
 ## Follow-up questions
 

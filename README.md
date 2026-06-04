@@ -20,6 +20,7 @@ The first version focuses on deterministic intake and report generation:
 - extract matching quotes from official source text
 - fetch bounded GitHub metadata for README/license/package/release signals
 - separate confirmed, unverified, and hype-risk sections
+- generate suggested Codex-ready smoke-test prompts for safe follow-up review
 
 Network verification is intentionally incremental. The current version keeps network access explicit via `--fetch-github` and accepts official-source text directly or from a local file. See [security boundaries](docs/security.md) for how untrusted URLs, repository references, text files, and output paths are handled.
 
@@ -53,6 +54,14 @@ oss-claimcheck prepare \
 - README detected
 - License detected: MIT
 - Package metadata detected: pyproject.toml
+
+## Codex-ready follow-up prompts
+
+### Installation
+
+- Status: Suggested — verify before relying on this task
+
+Prompt starts: Use only the repository and claim text from this evidence pack. Check whether owner/repo has a documented install path...
 ```
 
 ## Output
@@ -69,7 +78,7 @@ This is not a generic link summarizer. It is a maintainer safety workflow for to
 - repository identity hints
 - hype-signal detection
 - confirmed vs unverified separation
-- LLM/Codex-ready follow-up questions
+- LLM/Codex-ready follow-up prompts
 
 ## Roadmap
 
@@ -78,7 +87,6 @@ Active roadmap items are tracked in [ROADMAP.md](ROADMAP.md) and GitHub Issues. 
 - repository README/package/license verification
 - official-source quote extraction
 - evidence scoring for maintenance, identity, security, and hype risk
-- Codex-ready smoke-test prompts for safe OSS tool adoption reviews
 
 ## Development
 

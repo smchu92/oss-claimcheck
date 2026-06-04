@@ -1,6 +1,6 @@
 # Evidence Pack
 
-Generated: 2026-06-02T15:31:31.742983+00:00
+Generated: 2026-06-04T13:11:22.961059+00:00
 
 ## Source
 
@@ -9,48 +9,36 @@ Generated: 2026-06-02T15:31:31.742983+00:00
 
 ## Claim
 
-oss-claimcheck generates adoption-safety evidence packs for OSS maintainers and AI builders.
+This tool replaces all reviewers with zero setup.
 
 ## Repository
 
-- Full name: `smchu92/oss-claimcheck`
-- URL: https://github.com/smchu92/oss-claimcheck
-- Status: github metadata fetched
-- Description: Adoption-safety evidence pack generator for open-source maintainers
-- Stars: 0
-- Forks: 0
-- Open issues: 3
-- Default branch: main
-- License: MIT
-- Updated at: 2026-06-02T14:03:06Z
-- Pushed at: 2026-06-02T14:00:45Z
+- Full name: `owner/repo`
+- URL: https://github.com/owner/repo
+- Status: identity hint only; live GitHub metadata not fetched yet
 
 ## Official source quotes
 
 ### README
 
-- URL: https://github.com/smchu92/oss-claimcheck
+- URL: https://github.com/owner/repo
 
-- "`oss-claimcheck` is an adoption-safety evidence pack generator for open-source maintainers and AI builders."
-- "It turns noisy social posts, product claims, and GitHub repository references into a structured Markdown/JSON evidence pack so maintainers can decide what is confirmed, unverified, or likely overstated before adopting a tool."
-- "evidence scoring for maintenance, identity, security, and hype risk"
+- No matching quote found.
 
 ## Confirmed
 
-- GitHub metadata fetched for smchu92/oss-claimcheck
-- README detected
-- License detected: MIT
-- Package metadata detected: pyproject.toml
-- GitHub releases detected: 1
-- Official source quotes extracted from README
+None yet.
 
 ## Unverified
 
 - source text was provided by the user and still needs official-source verification
+- repository metadata has not been fetched from GitHub yet
+- README/package/license claims have not been checked yet
 
 ## Hype signals
 
-None yet.
+- replaces all reviewers
+- zero setup
 
 ## Verification checklist
 
@@ -60,6 +48,44 @@ None yet.
 - package/install path exists
 - recent maintainer activity is visible
 - security or destructive behavior is documented
+
+## Codex-ready follow-up prompts
+
+### Installation
+
+- Status: Suggested — verify before relying on this task
+- References: unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup
+
+```text
+Use only the repository at https://github.com/owner/repo and the claim text below. Treat this as a smoke test, not a full audit. Claim: 'This tool replaces all reviewers with zero setup.'. Evidence references: unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup. Check whether owner/repo has a documented install path. Run the smallest safe install or dry-run command available, then report the exact commands, outputs, and any missing prerequisites.
+```
+
+### Basic Run
+
+- Status: Suggested — verify before relying on this task
+- References: unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup
+
+```text
+Use only the repository at https://github.com/owner/repo and the claim text below. Treat this as a smoke test, not a full audit. Claim: 'This tool replaces all reviewers with zero setup.'. Evidence references: unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup. Find the quickest documented example or CLI entry point for owner/repo. Execute the smallest non-destructive run, capture stdout/stderr, and say whether it supports the claim or only demonstrates a narrower behavior.
+```
+
+### License Check
+
+- Status: Suggested — verify before relying on this task
+- References: unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup
+
+```text
+Use only the repository at https://github.com/owner/repo and the claim text below. Treat this as a smoke test, not a full audit. Claim: 'This tool replaces all reviewers with zero setup.'. Evidence references: unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup. Verify the license for owner/repo from repository files or GitHub metadata. Report the detected license, missing/ambiguous license evidence, and whether adoption needs human review.
+```
+
+### Failure-Mode Review
+
+- Status: Suggested — verify before relying on this task
+- References: unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup
+
+```text
+Use only the repository at https://github.com/owner/repo and the claim text below. Treat this as a smoke test, not a full audit. Claim: 'This tool replaces all reviewers with zero setup.'. Evidence references: unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup. Review likely failure modes before adoption: setup assumptions, network/API dependencies, destructive behavior, and exaggerated claims such as replaces all reviewers, zero setup. Return concrete risks and one safe follow-up test for each.
+```
 
 ## Follow-up questions
 

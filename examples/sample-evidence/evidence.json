@@ -1,49 +1,24 @@
 {
-  "generated_at": "2026-06-02T15:31:31.742983+00:00",
+  "generated_at": "2026-06-04T13:11:22.961059+00:00",
   "source": {
     "url": "https://x.com/example/status/123",
     "type": "user-provided-url"
   },
   "claim": {
-    "text": "oss-claimcheck generates adoption-safety evidence packs for OSS maintainers and AI builders."
+    "text": "This tool replaces all reviewers with zero setup."
   },
   "repository": {
-    "full_name": "smchu92/oss-claimcheck",
-    "owner": "smchu92",
-    "name": "oss-claimcheck",
-    "url": "https://github.com/smchu92/oss-claimcheck",
-    "verification_status": "github metadata fetched",
-    "description": "Adoption-safety evidence pack generator for open-source maintainers",
-    "stars": 0,
-    "forks": 0,
-    "open_issues": 3,
-    "default_branch": "main",
-    "license": "MIT",
-    "updated_at": "2026-06-02T14:03:06Z",
-    "pushed_at": "2026-06-02T14:00:45Z",
-    "readme_present": true,
-    "package_files": [
-      "pyproject.toml"
-    ],
-    "release_count": 1,
-    "signals": {
-      "readme_present": true,
-      "license_present": true,
-      "package_files": [
-        "pyproject.toml"
-      ],
-      "release_count": 1
-    }
+    "full_name": "owner/repo",
+    "owner": "owner",
+    "name": "repo",
+    "url": "https://github.com/owner/repo",
+    "verification_status": "identity hint only; live GitHub metadata not fetched yet"
   },
   "official_sources": [
     {
       "title": "README",
-      "url": "https://github.com/smchu92/oss-claimcheck",
-      "quotes": [
-        "`oss-claimcheck` is an adoption-safety evidence pack generator for open-source maintainers and AI builders.",
-        "It turns noisy social posts, product claims, and GitHub repository references into a structured Markdown/JSON evidence pack so maintainers can decide what is confirmed, unverified, or likely overstated before adopting a tool.",
-        "evidence scoring for maintenance, identity, security, and hype risk"
-      ]
+      "url": "https://github.com/owner/repo",
+      "quotes": []
     }
   ],
   "verification_checklist": [
@@ -55,19 +30,43 @@
     "security or destructive behavior is documented"
   ],
   "status": {
-    "confirmed": [
-      "GitHub metadata fetched for smchu92/oss-claimcheck",
-      "README detected",
-      "License detected: MIT",
-      "Package metadata detected: pyproject.toml",
-      "GitHub releases detected: 1",
-      "Official source quotes extracted from README"
-    ],
+    "confirmed": [],
     "unverified": [
-      "source text was provided by the user and still needs official-source verification"
+      "source text was provided by the user and still needs official-source verification",
+      "repository metadata has not been fetched from GitHub yet",
+      "README/package/license claims have not been checked yet"
     ],
-    "hype_signals": []
+    "hype_signals": [
+      "replaces all reviewers",
+      "zero setup"
+    ]
   },
+  "codex_smoke_test_prompts": [
+    {
+      "category": "installation",
+      "suggested": true,
+      "references": "unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup",
+      "prompt": "Use only the repository at https://github.com/owner/repo and the claim text below. Treat this as a smoke test, not a full audit. Claim: 'This tool replaces all reviewers with zero setup.'. Evidence references: unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup. Check whether owner/repo has a documented install path. Run the smallest safe install or dry-run command available, then report the exact commands, outputs, and any missing prerequisites."
+    },
+    {
+      "category": "basic run",
+      "suggested": true,
+      "references": "unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup",
+      "prompt": "Use only the repository at https://github.com/owner/repo and the claim text below. Treat this as a smoke test, not a full audit. Claim: 'This tool replaces all reviewers with zero setup.'. Evidence references: unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup. Find the quickest documented example or CLI entry point for owner/repo. Execute the smallest non-destructive run, capture stdout/stderr, and say whether it supports the claim or only demonstrates a narrower behavior."
+    },
+    {
+      "category": "license check",
+      "suggested": true,
+      "references": "unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup",
+      "prompt": "Use only the repository at https://github.com/owner/repo and the claim text below. Treat this as a smoke test, not a full audit. Claim: 'This tool replaces all reviewers with zero setup.'. Evidence references: unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup. Verify the license for owner/repo from repository files or GitHub metadata. Report the detected license, missing/ambiguous license evidence, and whether adoption needs human review."
+    },
+    {
+      "category": "failure-mode review",
+      "suggested": true,
+      "references": "unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup",
+      "prompt": "Use only the repository at https://github.com/owner/repo and the claim text below. Treat this as a smoke test, not a full audit. Claim: 'This tool replaces all reviewers with zero setup.'. Evidence references: unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup. Review likely failure modes before adoption: setup assumptions, network/API dependencies, destructive behavior, and exaggerated claims such as replaces all reviewers, zero setup. Return concrete risks and one safe follow-up test for each."
+    }
+  ],
   "follow_up_questions": [
     "What official docs or README sections support the claim?",
     "Does the repo contain an installable package or only a demo?",
