@@ -7,7 +7,7 @@
 - [x] Verify README, package metadata, license, and release signals for a target repository.
 - [x] Extract short source quotes from official pages, READMEs, and package registries.
 - [x] Document and test untrusted-input safety boundaries.
-- [ ] Add a simple evidence score that separates identity, maintenance, security, and hype-risk signals.
+- [x] Add a simple evidence score that separates identity, maintenance, security, and hype-risk signals.
 - [x] Generate Codex-ready smoke-test prompts for evaluating a tool safely.
 - [ ] Add CI fixtures for deterministic GitHub API metadata parsing.
 

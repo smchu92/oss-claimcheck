@@ -1,24 +1,49 @@
 {
-  "generated_at": "2026-06-04T13:11:22.961059+00:00",
+  "generated_at": "2026-06-04T14:31:55.428545+00:00",
   "source": {
     "url": "https://x.com/example/status/123",
     "type": "user-provided-url"
   },
   "claim": {
-    "text": "This tool replaces all reviewers with zero setup."
+    "text": "This repo generates adoption-safety evidence packs and Codex-ready smoke-test prompts before trusting a viral GitHub repo."
   },
   "repository": {
-    "full_name": "owner/repo",
-    "owner": "owner",
-    "name": "repo",
-    "url": "https://github.com/owner/repo",
-    "verification_status": "identity hint only; live GitHub metadata not fetched yet"
+    "full_name": "smchu92/oss-claimcheck",
+    "owner": "smchu92",
+    "name": "oss-claimcheck",
+    "url": "https://github.com/smchu92/oss-claimcheck",
+    "verification_status": "github metadata fetched",
+    "description": "Adoption-safety evidence pack generator for open-source maintainers",
+    "stars": 0,
+    "forks": 0,
+    "open_issues": 1,
+    "default_branch": "main",
+    "license": "MIT",
+    "updated_at": "2026-06-04T13:12:42Z",
+    "pushed_at": "2026-06-04T13:12:38Z",
+    "readme_present": true,
+    "package_files": [
+      "pyproject.toml"
+    ],
+    "release_count": 1,
+    "signals": {
+      "readme_present": true,
+      "license_present": true,
+      "package_files": [
+        "pyproject.toml"
+      ],
+      "release_count": 1
+    }
   },
   "official_sources": [
     {
       "title": "README",
-      "url": "https://github.com/owner/repo",
-      "quotes": []
+      "url": "https://github.com/smchu92/oss-claimcheck",
+      "quotes": [
+        "`oss-claimcheck` produces a neutral evidence pack first, then generates suggested Codex-ready smoke-test prompts for follow-up verification.",
+        "`oss-claimcheck` is an adoption-safety evidence pack generator for open-source maintainers and AI builders.",
+        "It turns noisy social posts, product claims, and GitHub repository references into a structured Markdown/JSON evidence pack so maintainers can decide what is confirmed, unverified, or likely overstated before adopting a tool."
+      ]
     }
   ],
   "verification_checklist": [
@@ -30,41 +55,85 @@
     "security or destructive behavior is documented"
   ],
   "status": {
-    "confirmed": [],
-    "unverified": [
-      "source text was provided by the user and still needs official-source verification",
-      "repository metadata has not been fetched from GitHub yet",
-      "README/package/license claims have not been checked yet"
+    "confirmed": [
+      "GitHub metadata fetched for smchu92/oss-claimcheck",
+      "README detected",
+      "License detected: MIT",
+      "Package metadata detected: pyproject.toml",
+      "GitHub releases detected: 1",
+      "Official source quotes extracted from README"
     ],
-    "hype_signals": [
-      "replaces all reviewers",
-      "zero setup"
-    ]
+    "unverified": [
+      "source text was provided by the user and still needs official-source verification"
+    ],
+    "hype_signals": []
+  },
+  "evidence_score": {
+    "overall": 94,
+    "components": {
+      "identity": {
+        "score": 100,
+        "reasons": [
+          "repository reference present: smchu92/oss-claimcheck",
+          "GitHub metadata fetched",
+          "README detected",
+          "license detected: MIT",
+          "official-source quote matched the claim"
+        ]
+      },
+      "maintenance": {
+        "score": 100,
+        "reasons": [
+          "GitHub metadata available for maintenance checks",
+          "README gives maintainers a review surface",
+          "package metadata detected: pyproject.toml",
+          "GitHub releases detected: 1",
+          "repository has update timestamps"
+        ]
+      },
+      "security": {
+        "score": 75,
+        "reasons": [
+          "license is present",
+          "package metadata gives dependency/install context",
+          "README can document setup and safety boundaries",
+          "repository identity was checked against GitHub metadata"
+        ]
+      },
+      "hype_risk": {
+        "score": 0,
+        "reasons": [
+          "no configured hype phrases detected in the claim text"
+        ],
+        "risk_level": "low"
+      }
+    },
+    "note": "Heuristic evidence score only; not a security audit."
   },
   "codex_smoke_test_prompts": [
     {
       "category": "installation",
       "suggested": true,
-      "references": "unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup",
-      "prompt": "Use only the repository at https://github.com/owner/repo and the claim text below. Treat this as a smoke test, not a full audit. Claim: 'This tool replaces all reviewers with zero setup.'. Evidence references: unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup. Check whether owner/repo has a documented install path. Run the smallest safe install or dry-run command available, then report the exact commands, outputs, and any missing prerequisites."
+      "references": "confirmed: GitHub metadata fetched for smchu92/oss-claimcheck; README detected; License detected: MIT | unverified: source text was provided by the user and still needs official-source verification",
+      "prompt": "Use only the repository at https://github.com/smchu92/oss-claimcheck and the claim text below. Treat this as a smoke test, not a full audit. Claim: 'This repo generates adoption-safety evidence packs and Codex-ready smoke-test prompts before trusting a viral GitHub repo.'. Evidence references: confirmed: GitHub metadata fetched for smchu92/oss-claimcheck; README detected; License detected: MIT | unverified: source text was provided by the user and still needs official-source verification. Check whether smchu92/oss-claimcheck has a documented install path. Run the smallest safe install or dry-run command available, then report the exact commands, outputs, and any missing prerequisites."
     },
     {
       "category": "basic run",
       "suggested": true,
-      "references": "unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup",
-      "prompt": "Use only the repository at https://github.com/owner/repo and the claim text below. Treat this as a smoke test, not a full audit. Claim: 'This tool replaces all reviewers with zero setup.'. Evidence references: unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup. Find the quickest documented example or CLI entry point for owner/repo. Execute the smallest non-destructive run, capture stdout/stderr, and say whether it supports the claim or only demonstrates a narrower behavior."
+      "references": "confirmed: GitHub metadata fetched for smchu92/oss-claimcheck; README detected; License detected: MIT | unverified: source text was provided by the user and still needs official-source verification",
+      "prompt": "Use only the repository at https://github.com/smchu92/oss-claimcheck and the claim text below. Treat this as a smoke test, not a full audit. Claim: 'This repo generates adoption-safety evidence packs and Codex-ready smoke-test prompts before trusting a viral GitHub repo.'. Evidence references: confirmed: GitHub metadata fetched for smchu92/oss-claimcheck; README detected; License detected: MIT | unverified: source text was provided by the user and still needs official-source verification. Find the quickest documented example or CLI entry point for smchu92/oss-claimcheck. Execute the smallest non-destructive run, capture stdout/stderr, and say whether it supports the claim or only demonstrates a narrower behavior."
     },
     {
       "category": "license check",
       "suggested": true,
-      "references": "unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup",
-      "prompt": "Use only the repository at https://github.com/owner/repo and the claim text below. Treat this as a smoke test, not a full audit. Claim: 'This tool replaces all reviewers with zero setup.'. Evidence references: unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup. Verify the license for owner/repo from repository files or GitHub metadata. Report the detected license, missing/ambiguous license evidence, and whether adoption needs human review."
+      "references": "confirmed: GitHub metadata fetched for smchu92/oss-claimcheck; README detected; License detected: MIT | unverified: source text was provided by the user and still needs official-source verification",
+      "prompt": "Use only the repository at https://github.com/smchu92/oss-claimcheck and the claim text below. Treat this as a smoke test, not a full audit. Claim: 'This repo generates adoption-safety evidence packs and Codex-ready smoke-test prompts before trusting a viral GitHub repo.'. Evidence references: confirmed: GitHub metadata fetched for smchu92/oss-claimcheck; README detected; License detected: MIT | unverified: source text was provided by the user and still needs official-source verification. Verify the license for smchu92/oss-claimcheck from repository files or GitHub metadata. Report the detected license, missing/ambiguous license evidence, and whether adoption needs human review."
     },
     {
       "category": "failure-mode review",
       "suggested": true,
-      "references": "unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup",
-      "prompt": "Use only the repository at https://github.com/owner/repo and the claim text below. Treat this as a smoke test, not a full audit. Claim: 'This tool replaces all reviewers with zero setup.'. Evidence references: unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup. Review likely failure modes before adoption: setup assumptions, network/API dependencies, destructive behavior, and exaggerated claims such as replaces all reviewers, zero setup. Return concrete risks and one safe follow-up test for each."
+      "references": "confirmed: GitHub metadata fetched for smchu92/oss-claimcheck; README detected; License detected: MIT | unverified: source text was provided by the user and still needs official-source verification",
+      "prompt": "Use only the repository at https://github.com/smchu92/oss-claimcheck and the claim text below. Treat this as a smoke test, not a full audit. Claim: 'This repo generates adoption-safety evidence packs and Codex-ready smoke-test prompts before trusting a viral GitHub repo.'. Evidence references: confirmed: GitHub metadata fetched for smchu92/oss-claimcheck; README detected; License detected: MIT | unverified: source text was provided by the user and still needs official-source verification. Review likely failure modes before adoption: setup assumptions, network/API dependencies, destructive behavior, and exaggerated claims such as unverified marketing claims. Return concrete risks and one safe follow-up test for each."
     }
   ],
   "follow_up_questions": [

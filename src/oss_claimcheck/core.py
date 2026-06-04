@@ -116,6 +116,114 @@ def _confirmed_repository_signals(repository: dict[str, Any]) -> list[str]:
     return confirmed
 
 
+def _score_component(score: int, reasons: list[str]) -> dict[str, Any]:
+    return {"score": max(0, min(100, score)), "reasons": reasons}
+
+
+def _risk_level(score: int) -> str:
+    if score >= 75:
+        return "high"
+    if score >= 40:
+        return "medium"
+    return "low"
+
+
+def generate_evidence_score(
+    *,
+    repository: dict[str, Any] | None,
+    official_sources: list[dict[str, Any]],
+    hype_signals: list[str],
+) -> dict[str, Any]:
+    """Return deterministic heuristic evidence scores for maintainer triage."""
+    signals = repository.get("signals") if repository else None
+    signals = signals or {}
+    identity_score = 0
+    identity_reasons = []
+    if repository:
+        identity_score += 15
+        identity_reasons.append(f"repository reference present: {repository['full_name']}")
+    if repository and repository.get("verification_status") == "github metadata fetched":
+        identity_score += 25
+        identity_reasons.append("GitHub metadata fetched")
+    if signals.get("readme_present"):
+        identity_score += 20
+        identity_reasons.append("README detected")
+    if signals.get("license_present"):
+        identity_score += 15
+        license_value = repository.get("license") if repository else "unknown"
+        identity_reasons.append(f"license detected: {license_value}")
+    if any(source.get("quotes") for source in official_sources):
+        identity_score += 25
+        identity_reasons.append("official-source quote matched the claim")
+    if not identity_reasons:
+        identity_reasons.append("no repository or official-source identity evidence yet")
+
+    maintenance_score = 0
+    maintenance_reasons = []
+    if repository and repository.get("verification_status") == "github metadata fetched":
+        maintenance_score += 25
+        maintenance_reasons.append("GitHub metadata available for maintenance checks")
+    if signals.get("readme_present"):
+        maintenance_score += 15
+        maintenance_reasons.append("README gives maintainers a review surface")
+    if signals.get("package_files"):
+        maintenance_score += 20
+        maintenance_reasons.append("package metadata detected: " + ", ".join(signals["package_files"]))
+    if signals.get("release_count"):
+        maintenance_score += 20
+        maintenance_reasons.append(f"GitHub releases detected: {signals['release_count']}")
+    if repository and (repository.get("pushed_at") or repository.get("updated_at")):
+        maintenance_score += 20
+        maintenance_reasons.append("repository has update timestamps")
+    if not maintenance_reasons:
+        maintenance_reasons.append("metadata needed for maintenance confidence has not been fetched")
+
+    security_score = 0
+    security_reasons = []
+    if signals.get("license_present"):
+        security_score += 30
+        security_reasons.append("license is present")
+    if signals.get("package_files"):
+        security_score += 20
+        security_reasons.append("package metadata gives dependency/install context")
+    if signals.get("readme_present"):
+        security_score += 15
+        security_reasons.append("README can document setup and safety boundaries")
+    if repository and repository.get("verification_status") == "github metadata fetched":
+        security_score += 10
+        security_reasons.append("repository identity was checked against GitHub metadata")
+    if not security_reasons:
+        security_reasons.append("no license/package/security-adjacent metadata confirmed yet")
+
+    hype_score = min(100, len(hype_signals) * 25)
+    hype_reasons = [f"hype signal detected: {signal}" for signal in hype_signals]
+    if not hype_reasons:
+        hype_reasons.append("no configured hype phrases detected in the claim text")
+
+    components = {
+        "identity": _score_component(identity_score, identity_reasons),
+        "maintenance": _score_component(maintenance_score, maintenance_reasons),
+        "security": _score_component(security_score, security_reasons),
+        "hype_risk": {
+            **_score_component(hype_score, hype_reasons),
+            "risk_level": _risk_level(hype_score),
+        },
+    }
+    overall = round(
+        (
+            components["identity"]["score"]
+            + components["maintenance"]["score"]
+            + components["security"]["score"]
+            + (100 - components["hype_risk"]["score"])
+        ) / 4
+    )
+    return {
+        "overall": overall,
+        "components": components,
+        "note": "Heuristic evidence score only; not a security audit.",
+    }
+
+
 def _codex_prompt_references(confirmed: list[str], unverified: list[str], hype_signals: list[str]) -> str:
     references = []
     if confirmed:
@@ -221,6 +329,11 @@ def prepare_evidence_pack(
         unverified.insert(1, "repository metadata has not been fetched from GitHub yet")
 
     hype_signals = detect_hype_signals(claim_text)
+    evidence_score = generate_evidence_score(
+        repository=repository,
+        official_sources=official_source_entries,
+        hype_signals=hype_signals,
+    )
     codex_prompts = generate_codex_smoke_test_prompts(
         claim_text=claim_text,
         repository=repository,
@@ -253,6 +366,7 @@ def prepare_evidence_pack(
             "unverified": unverified,
             "hype_signals": hype_signals,
         },
+        "evidence_score": evidence_score,
         "codex_smoke_test_prompts": codex_prompts,
         "follow_up_questions": [
             "What official docs or README sections support the claim?",
@@ -300,6 +414,29 @@ def _codex_prompts_markdown(prompts: list[dict[str, Any]]) -> str:
     return "\n\n".join(sections)
 
 
+def _evidence_score_markdown(score: dict[str, Any]) -> str:
+    components = score.get("components", {})
+    lines = [
+        f"- Overall: {score.get('overall')}/100",
+        f"- Note: {score.get('note')}",
+    ]
+    for key, label in [
+        ("identity", "Identity"),
+        ("maintenance", "Maintenance"),
+        ("security", "Security"),
+        ("hype_risk", "Hype risk"),
+    ]:
+        component = components.get(key, {})
+        detail = f"- {label}: {component.get('score')}/100"
+        if key == "hype_risk" and component.get("risk_level"):
+            detail += f" ({component['risk_level']} risk)"
+        reasons = component.get("reasons") or []
+        if reasons:
+            detail += f" — {reasons[0]}"
+        lines.append(detail)
+    return "\n".join(lines)
+
+
 def render_markdown(pack: dict[str, Any]) -> str:
     repo = pack.get("repository")
     repo_section = "Not provided."
@@ -325,6 +462,7 @@ def render_markdown(pack: dict[str, Any]) -> str:
 
     status = pack["status"]
     official_sources = _official_sources_markdown(pack.get("official_sources", []))
+    evidence_score = _evidence_score_markdown(pack["evidence_score"])
     codex_prompts = _codex_prompts_markdown(pack.get("codex_smoke_test_prompts", []))
     return f"""# Evidence Pack
 
@@ -358,6 +496,10 @@ Generated: {pack['generated_at']}
 ## Hype signals
 
 {_bullet_list(status['hype_signals'])}
+
+## Evidence score
+
+{evidence_score}
 
 ## Verification checklist
 

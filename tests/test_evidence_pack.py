@@ -221,6 +221,62 @@ def test_prepare_evidence_pack_includes_codex_prompt_suggestions_for_hype_signal
     assert "zero setup" in markdown
 
 
+def test_prepare_evidence_pack_scores_low_metadata_and_hype_risk():
+    pack = prepare_evidence_pack(
+        url="https://x.com/example/status/123",
+        claim_text="This tool replaces all reviewers with zero setup and works everywhere.",
+        repo="owner/repo",
+    )
+
+    score = pack["evidence_score"]
+    assert score["note"] == "Heuristic evidence score only; not a security audit."
+    assert 0 <= score["overall"] <= 100
+    assert score["components"]["identity"]["score"] < 50
+    assert score["components"]["maintenance"]["score"] < 50
+    assert score["components"]["security"]["score"] < 50
+    assert score["components"]["hype_risk"]["score"] >= 75
+    assert score["components"]["hype_risk"]["risk_level"] == "high"
+    assert "zero setup" in " ".join(score["components"]["hype_risk"]["reasons"])
+
+    markdown = render_markdown(pack)
+    assert "## Evidence score" in markdown
+    assert "Heuristic evidence score only; not a security audit." in markdown
+    assert "- Hype risk: " in markdown
+
+
+def test_prepare_evidence_pack_scores_stronger_verified_metadata():
+    def fake_fetcher(repo):
+        return {
+            "description": "Adoption evidence generator",
+            "license": "MIT",
+            "readme_present": True,
+            "package_files": ["pyproject.toml"],
+            "release_count": 2,
+            "updated_at": "2026-06-01T00:00:00Z",
+            "pushed_at": "2026-06-01T00:00:00Z",
+        }
+
+    pack = prepare_evidence_pack(
+        url="https://x.com/example/status/123",
+        claim_text="This tool generates evidence packs for OSS adoption review.",
+        repo="owner/repo",
+        github_fetcher=fake_fetcher,
+        official_sources=[{
+            "title": "README",
+            "url": "https://github.com/owner/repo",
+            "text": "This tool generates evidence packs for OSS maintainers before adoption.",
+        }],
+    )
+
+    components = pack["evidence_score"]["components"]
+    assert components["identity"]["score"] >= 80
+    assert components["maintenance"]["score"] >= 70
+    assert components["security"]["score"] >= 50
+    assert components["hype_risk"]["score"] == 0
+    assert components["hype_risk"]["risk_level"] == "low"
+    assert pack["evidence_score"]["overall"] >= 70
+
+
 def test_cli_prepare_writes_json_and_markdown(tmp_path):
     from oss_claimcheck.cli import main
 
@@ -241,6 +297,9 @@ def test_cli_prepare_writes_json_and_markdown(tmp_path):
 
     data = json.loads(evidence_json.read_text())
     assert data["repository"]["full_name"] == "owner/repo"
+    assert "evidence_score" in data
     assert "codex_smoke_test_prompts" in data
-    assert "## Hype signals" in evidence_md.read_text()
-    assert "## Codex-ready follow-up prompts" in evidence_md.read_text()
+    md_text = evidence_md.read_text()
+    assert "## Hype signals" in md_text
+    assert "## Evidence score" in md_text
+    assert "## Codex-ready follow-up prompts" in md_text

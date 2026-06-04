@@ -1,6 +1,6 @@
 # Evidence Pack
 
-Generated: 2026-06-04T13:11:22.961059+00:00
+Generated: 2026-06-04T14:31:55.428545+00:00
 
 ## Source
 
@@ -9,36 +9,57 @@ Generated: 2026-06-04T13:11:22.961059+00:00
 
 ## Claim
 
-This tool replaces all reviewers with zero setup.
+This repo generates adoption-safety evidence packs and Codex-ready smoke-test prompts before trusting a viral GitHub repo.
 
 ## Repository
 
-- Full name: `owner/repo`
-- URL: https://github.com/owner/repo
-- Status: identity hint only; live GitHub metadata not fetched yet
+- Full name: `smchu92/oss-claimcheck`
+- URL: https://github.com/smchu92/oss-claimcheck
+- Status: github metadata fetched
+- Description: Adoption-safety evidence pack generator for open-source maintainers
+- Stars: 0
+- Forks: 0
+- Open issues: 1
+- Default branch: main
+- License: MIT
+- Updated at: 2026-06-04T13:12:42Z
+- Pushed at: 2026-06-04T13:12:38Z
 
 ## Official source quotes
 
 ### README
 
-- URL: https://github.com/owner/repo
+- URL: https://github.com/smchu92/oss-claimcheck
 
-- No matching quote found.
+- "`oss-claimcheck` produces a neutral evidence pack first, then generates suggested Codex-ready smoke-test prompts for follow-up verification."
+- "`oss-claimcheck` is an adoption-safety evidence pack generator for open-source maintainers and AI builders."
+- "It turns noisy social posts, product claims, and GitHub repository references into a structured Markdown/JSON evidence pack so maintainers can decide what is confirmed, unverified, or likely overstated before adopting a tool."
 
 ## Confirmed
 
-None yet.
+- GitHub metadata fetched for smchu92/oss-claimcheck
+- README detected
+- License detected: MIT
+- Package metadata detected: pyproject.toml
+- GitHub releases detected: 1
+- Official source quotes extracted from README
 
 ## Unverified
 
 - source text was provided by the user and still needs official-source verification
-- repository metadata has not been fetched from GitHub yet
-- README/package/license claims have not been checked yet
 
 ## Hype signals
 
-- replaces all reviewers
-- zero setup
+None yet.
+
+## Evidence score
+
+- Overall: 94/100
+- Note: Heuristic evidence score only; not a security audit.
+- Identity: 100/100 — repository reference present: smchu92/oss-claimcheck
+- Maintenance: 100/100 — GitHub metadata available for maintenance checks
+- Security: 75/100 — license is present
+- Hype risk: 0/100 (low risk) — no configured hype phrases detected in the claim text
 
 ## Verification checklist
 
@@ -54,37 +75,37 @@ None yet.
 ### Installation
 
 - Status: Suggested — verify before relying on this task
-- References: unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup
+- References: confirmed: GitHub metadata fetched for smchu92/oss-claimcheck; README detected; License detected: MIT | unverified: source text was provided by the user and still needs official-source verification
 
 ```text
-Use only the repository at https://github.com/owner/repo and the claim text below. Treat this as a smoke test, not a full audit. Claim: 'This tool replaces all reviewers with zero setup.'. Evidence references: unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup. Check whether owner/repo has a documented install path. Run the smallest safe install or dry-run command available, then report the exact commands, outputs, and any missing prerequisites.
+Use only the repository at https://github.com/smchu92/oss-claimcheck and the claim text below. Treat this as a smoke test, not a full audit. Claim: 'This repo generates adoption-safety evidence packs and Codex-ready smoke-test prompts before trusting a viral GitHub repo.'. Evidence references: confirmed: GitHub metadata fetched for smchu92/oss-claimcheck; README detected; License detected: MIT | unverified: source text was provided by the user and still needs official-source verification. Check whether smchu92/oss-claimcheck has a documented install path. Run the smallest safe install or dry-run command available, then report the exact commands, outputs, and any missing prerequisites.
 ```
 
 ### Basic Run
 
 - Status: Suggested — verify before relying on this task
-- References: unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup
+- References: confirmed: GitHub metadata fetched for smchu92/oss-claimcheck; README detected; License detected: MIT | unverified: source text was provided by the user and still needs official-source verification
 
 ```text
-Use only the repository at https://github.com/owner/repo and the claim text below. Treat this as a smoke test, not a full audit. Claim: 'This tool replaces all reviewers with zero setup.'. Evidence references: unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup. Find the quickest documented example or CLI entry point for owner/repo. Execute the smallest non-destructive run, capture stdout/stderr, and say whether it supports the claim or only demonstrates a narrower behavior.
+Use only the repository at https://github.com/smchu92/oss-claimcheck and the claim text below. Treat this as a smoke test, not a full audit. Claim: 'This repo generates adoption-safety evidence packs and Codex-ready smoke-test prompts before trusting a viral GitHub repo.'. Evidence references: confirmed: GitHub metadata fetched for smchu92/oss-claimcheck; README detected; License detected: MIT | unverified: source text was provided by the user and still needs official-source verification. Find the quickest documented example or CLI entry point for smchu92/oss-claimcheck. Execute the smallest non-destructive run, capture stdout/stderr, and say whether it supports the claim or only demonstrates a narrower behavior.
 ```
 
 ### License Check
 
 - Status: Suggested — verify before relying on this task
-- References: unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup
+- References: confirmed: GitHub metadata fetched for smchu92/oss-claimcheck; README detected; License detected: MIT | unverified: source text was provided by the user and still needs official-source verification
 
 ```text
-Use only the repository at https://github.com/owner/repo and the claim text below. Treat this as a smoke test, not a full audit. Claim: 'This tool replaces all reviewers with zero setup.'. Evidence references: unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup. Verify the license for owner/repo from repository files or GitHub metadata. Report the detected license, missing/ambiguous license evidence, and whether adoption needs human review.
+Use only the repository at https://github.com/smchu92/oss-claimcheck and the claim text below. Treat this as a smoke test, not a full audit. Claim: 'This repo generates adoption-safety evidence packs and Codex-ready smoke-test prompts before trusting a viral GitHub repo.'. Evidence references: confirmed: GitHub metadata fetched for smchu92/oss-claimcheck; README detected; License detected: MIT | unverified: source text was provided by the user and still needs official-source verification. Verify the license for smchu92/oss-claimcheck from repository files or GitHub metadata. Report the detected license, missing/ambiguous license evidence, and whether adoption needs human review.
 ```
 
 ### Failure-Mode Review
 
 - Status: Suggested — verify before relying on this task
-- References: unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup
+- References: confirmed: GitHub metadata fetched for smchu92/oss-claimcheck; README detected; License detected: MIT | unverified: source text was provided by the user and still needs official-source verification
 
 ```text
-Use only the repository at https://github.com/owner/repo and the claim text below. Treat this as a smoke test, not a full audit. Claim: 'This tool replaces all reviewers with zero setup.'. Evidence references: unverified: source text was provided by the user and still needs official-source verification; repository metadata has not been fetched from GitHub yet; README/package/license claims have not been checked yet | hype signals: replaces all reviewers; zero setup. Review likely failure modes before adoption: setup assumptions, network/API dependencies, destructive behavior, and exaggerated claims such as replaces all reviewers, zero setup. Return concrete risks and one safe follow-up test for each.
+Use only the repository at https://github.com/smchu92/oss-claimcheck and the claim text below. Treat this as a smoke test, not a full audit. Claim: 'This repo generates adoption-safety evidence packs and Codex-ready smoke-test prompts before trusting a viral GitHub repo.'. Evidence references: confirmed: GitHub metadata fetched for smchu92/oss-claimcheck; README detected; License detected: MIT | unverified: source text was provided by the user and still needs official-source verification. Review likely failure modes before adoption: setup assumptions, network/API dependencies, destructive behavior, and exaggerated claims such as unverified marketing claims. Return concrete risks and one safe follow-up test for each.
 ```
 
 ## Follow-up questions
