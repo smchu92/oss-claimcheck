@@ -13,7 +13,7 @@ def _request_json(url: str, *, timeout: float) -> Any:
         url,
         headers={
             "Accept": "application/vnd.github+json",
-            "User-Agent": "oss-claimcheck/0.1.0",
+            "User-Agent": "oss-claimcheck/0.1.1",
         },
     )
     with urllib.request.urlopen(request, timeout=timeout) as response:
@@ -53,6 +53,8 @@ def fetch_github_repo_metadata(repo: RepoRef, *, timeout: float = 10.0) -> dict[
         "license": license_info.get("spdx_id") if isinstance(license_info, dict) else None,
         "updated_at": data.get("updated_at"),
         "pushed_at": data.get("pushed_at"),
+        "archived": data.get("archived"),
+        "disabled": data.get("disabled"),
         "readme_present": readme_present,
         "package_files": package_files,
         "release_count": len(releases),

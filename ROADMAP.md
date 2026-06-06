@@ -9,7 +9,7 @@
 - [x] Document and test untrusted-input safety boundaries.
 - [x] Add a simple evidence score that separates identity, maintenance, security, and hype-risk signals.
 - [x] Generate Codex-ready smoke-test prompts for evaluating a tool safely.
-- [ ] Add CI fixtures for deterministic GitHub API metadata parsing.
+- [x] Add CI fixtures for deterministic GitHub API metadata parsing.
 
 ## Later
 

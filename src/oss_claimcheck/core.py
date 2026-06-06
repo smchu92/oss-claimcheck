@@ -455,6 +455,8 @@ def render_markdown(pack: dict[str, Any]) -> str:
             ("license", "License"),
             ("updated_at", "Updated at"),
             ("pushed_at", "Pushed at"),
+            ("archived", "Archived"),
+            ("disabled", "Disabled"),
         ]:
             if repo.get(key) is not None:
                 metadata_lines.append(f"- {label}: {repo[key]}")

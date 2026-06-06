@@ -125,6 +125,8 @@ def test_prepare_evidence_pack_includes_repository_signals_from_github_metadata(
             "readme_present": True,
             "package_files": ["pyproject.toml"],
             "release_count": 2,
+            "archived": False,
+            "disabled": False,
         }
 
     pack = prepare_evidence_pack(
@@ -142,6 +144,9 @@ def test_prepare_evidence_pack_includes_repository_signals_from_github_metadata(
     assert "README detected" in pack["status"]["confirmed"]
     assert "License detected: Apache-2.0" in pack["status"]["confirmed"]
     assert "Package metadata detected: pyproject.toml" in pack["status"]["confirmed"]
+    markdown = render_markdown(pack)
+    assert "- Archived: False" in markdown
+    assert "- Disabled: False" in markdown
 
 
 def test_cli_prepare_rejects_unsafe_source_url(tmp_path):

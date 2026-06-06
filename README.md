@@ -116,9 +116,9 @@ This is not a generic link summarizer. It is a maintainer safety workflow for to
 
 Active roadmap items are tracked in [ROADMAP.md](ROADMAP.md) and GitHub Issues. The next focus areas are:
 
-- repository README/package/license verification
-- official-source quote extraction
-- deterministic fixtures for GitHub API metadata parsing
+- package ecosystem verification for PyPI and npm
+- optional source fetching with explicit domain allowlists
+- dependency and license risk summaries
 
 ## Development
 
